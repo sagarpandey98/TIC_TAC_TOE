@@ -70,8 +70,9 @@ public class Game {
         public List<Player> getPlayers() {
             return players;
         }
-        public void setPlayers(List<Player> players) {
+        public Builder setPlayers(List<Player> players) {
             this.players = players;
+            return this;
         }
 
         private boolean isValid(){
@@ -99,5 +100,28 @@ public class Game {
 
         }
         
+    }
+    public void displayBoard() {
+        this.board.display();
+    }
+
+    public void makeNextMove() {
+        Player playerToMove = players.get(nextPlayerIndex);
+        System.out.println("It is " + playerToMove.getName() + "'s turn to play");
+
+        Move move = playerToMove.decideMove(this.board);
+
+        // validate the move
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        System.out.println("Player is making the move at row: " + row + " & col: " + col);
+
+        // Game will validate the move. -> TODO.
+
+        board.getBoard().get(row).get(col).setPlayer(playerToMove);
+        board.getBoard().get(row).get(col).setCellState(CellState.FILLED);
+
+        nextPlayerIndex = (nextPlayerIndex+1) % players.size();
     }
 }

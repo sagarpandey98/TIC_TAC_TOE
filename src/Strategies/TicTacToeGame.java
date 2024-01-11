@@ -47,5 +47,9 @@ public class TicTacToeGame {
             }
         }
 
+        // players list is complete
+        // start the game
+        GameController gameController = 
+
     }
 }
