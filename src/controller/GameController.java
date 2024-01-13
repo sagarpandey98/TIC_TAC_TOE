@@ -13,6 +13,11 @@ public class GameController {
 
     }
 
+    public Player getWinner(Game game)
+    {
+        return game.getWinner();
+    } 
+
     public Game createGame(int dimension, List<Player> players) throws InvalidGameBuildException{
         Game game = Game.getBuilder().setPlayers(players).setDimension(dimension).build();
         return game;

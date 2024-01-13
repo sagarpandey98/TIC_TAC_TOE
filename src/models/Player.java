@@ -40,13 +40,14 @@ public class Player {
 
     public Move decideMove(Board board)
     {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter the row ");
-        int row = scanner.nextInt();
-        System.out.println("Please enter the col: ");
-        int col = scanner.nextInt();
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Please enter the row ");
+            int row = scanner.nextInt();
+            System.out.println("Please enter the col: ");
+            int col = scanner.nextInt();
 
-        return new Move(this, new Cell(row, col));
+            return new Move(this, new Cell(row, col));
+        }
 
     }
 }

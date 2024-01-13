@@ -1,4 +1,4 @@
-package GameWinningStrategy;
+package Strategies.GameWinningStrategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

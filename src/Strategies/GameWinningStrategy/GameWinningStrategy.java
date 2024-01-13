@@ -1,4 +1,4 @@
-package GameWinningStrategy;
+package Strategies.GameWinningStrategy;
 
 import models.Board;
 import models.Cell;

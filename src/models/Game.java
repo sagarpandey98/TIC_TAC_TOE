@@ -3,6 +3,8 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import Strategies.GameWinningStrategy.GameWinningStrategy;
+import Strategies.GameWinningStrategy.OrderoneWinningStrategy;
 import exceptions.InvalidGameBuildException;
 
 public class Game {
@@ -11,7 +13,17 @@ public class Game {
     private List<Move> moves;
     private GameStatus gameStatus;
     private int nextPlayerIndex;
+    private GameWinningStrategy gameWinningStrategy;
+    private Player winner;
 
+    public Player getWinner(){
+        return winner;
+    }
+
+    public void setWinner(Player winner){
+        this.winner = winner;
+    }
+    
     public static Builder getBuilder(){
         return new Builder();
     }
@@ -55,6 +67,15 @@ public class Game {
     public void setNextPlayerIndex(int nextPlayerIndex) {
         this.nextPlayerIndex = nextPlayerIndex;
     }
+
+    public GameWinningStrategy getGameWinningStrategy() {
+        return this.gameWinningStrategy;
+        }
+
+        public void setGameWinningStrategy(GameWinningStrategy gameWinningStrategy) {
+        this.gameWinningStrategy = gameWinningStrategy;
+        }
+
     public static class Builder{
 
         private int dimension;    
@@ -93,9 +114,10 @@ public class Game {
             Game game = new Game();
             game.setGameStatus(GameStatus.IN_PROGRESS);
             game.setBoard(new Board(dimension));
-            game.setPlayers(new ArrayList<>());
+            game.setPlayers(players);
             game.setMoves(new ArrayList<>());
             game.setNextPlayerIndex(0);
+            game.setGameWinningStrategy(new OrderoneWinningStrategy(dimension));
             return game;
 
         }
@@ -114,14 +136,21 @@ public class Game {
         // validate the move
         int row = move.getCell().getRow();
         int col = move.getCell().getCol();
+        Cell cell = move.getCell();
 
         System.out.println("Player is making the move at row: " + row + " & col: " + col);
 
         // Game will validate the move. -> TODO.
-
+        cell.setPlayer(playerToMove);
         board.getBoard().get(row).get(col).setPlayer(playerToMove);
         board.getBoard().get(row).get(col).setCellState(CellState.FILLED);
 
+        if(gameWinningStrategy.checkWinner(board, playerToMove, cell)){
+            gameStatus = GameStatus.ENDED;
+            winner = playerToMove;
+        }
+
         nextPlayerIndex = (nextPlayerIndex+1) % players.size();
     }
+
 }

@@ -6,11 +6,11 @@ public class Cell {
     private int col;
     private CellState cellState;
 
-    Cell(int row, int col)
+    public Cell(int row, int col)
     {
         this.row = row;
         this.col = col;
-        this.cellState = cellState.EMPTY;
+        this.cellState = CellState.EMPTY;
     }
 
     public Player getPlayer() {

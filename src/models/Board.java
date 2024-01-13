@@ -26,18 +26,16 @@ public class Board {
         this.board = board;
     }
 
-    public void display(){
-        for (int i = 0; i<board.size(); i++){
-            for (int j = 0; j<board.size(); ++j){
-                if(board.get(i).get(j).getCellState().equals(CellState.EMPTY))
-                {
-                    System.out.println("|   |");
-                }
-                else{
-                    System.out.println("| " + board.get(i).get(j).getPlayer().getSymbol() + " |");
+    public void display() {
+        for (int i = 0; i < board.size(); ++i) {
+            for (int j = 0; j < board.size(); ++j) {
+                if (board.get(i).get(j).getCellState().equals(CellState.EMPTY)) {
+                    System.out.printf("|   |");
+                } else {
+                    System.out.printf("| " + board.get(i).get(j).getPlayer().getSymbol() + " |");
                 }
             }
-            System.out.println("/n");
+            System.out.println("\n");
         }
         
     }
